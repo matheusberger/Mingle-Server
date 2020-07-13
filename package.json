@@ -20,5 +20,12 @@
   "bugs": {
     "url": "https://github.com/matheusberger/Mingle-Server/issues"
   },
-  "homepage": "https://github.com/matheusberger/Mingle-Server#readme"
+  "homepage": "https://github.com/matheusberger/Mingle-Server#readme",
+  "keywords": [],
+  "engines": {
+    "node": "12.17.x"
+  },
+  "scripts": {
+    "start": "node mingle.js"
+  }
 }

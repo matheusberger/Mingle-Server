@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      let socket = io();
+      let el;
+
+      socket.on('update', (timeString) => {
+        el = document.getElementById('players');
+        el.innerHTML = 'Players sids: ' + timeString;
+      });
+    </script>
+  </head>
+  <body>
+    <p id="players"></p>
+  </body>
+</html>

@@ -20,7 +20,6 @@ io.on('connection', function (socket) {
     socket.emit('connect', numOfConnections);
 
     numOfConnections = numOfConnections + 1;
-    console.log(socket.id);
 
 	socket.on('position', function(data) {
 		players[socket.id] = data;
@@ -28,7 +27,6 @@ io.on('connection', function (socket) {
 
 
 	setInterval(function() {
-		console.log(players);
-		socket.emit('update', players);
-	}, 1000);
+		socket.emit('update', { data: Object.values(players) });
+	}, 31.25);
 });

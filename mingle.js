@@ -17,16 +17,36 @@ var players = { };
 
 io.on('connection', function (socket) {
 	console.log("client connected at: " + socket.id);
-    socket.emit('connect', numOfConnections);
-
     numOfConnections = numOfConnections + 1;
+    socket.emit('connect', numOfConnections);
 
 	socket.on('position', function(data) {
 		players[socket.id] = data;
 	});
 
+	socket.on('offer', (offer) => {
+	    //send offer to others with socket.broadcast.emit
+        console.log("offer received, sending answer");
+        socket.broadcast.emit('offer', offer);
+	});
+	socket.on('answer', (answer) => {
+		console.log("received answer");
+	  	//socket.to(id).emit("answer", socket.id, message);
+	});
+	socket.on('ice-candidate', (message) => {
+		console.log("received candidate, sending it to others");
+	  	socket.broadcast.emit("ice-candidate", message);
+	});
+
+	socket.on('disconnect', () => {
+	  delete(players[socket.id]);
+	  numOfConnections = numOfConnections - 1;
+
+	  console.log("client disconnected at: " + socket.id);
+	});
 
 	setInterval(function() {
 		socket.emit('update', { data: Object.values(players) });
 	}, 31.25);
 });
+

@@ -47,6 +47,6 @@ io.on('connection', function (socket) {
 
 	setInterval(function() {
 		socket.emit('update', { data: Object.values(players) });
-	}, 31.25);
+	}, 15.625);
 });
 

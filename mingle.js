@@ -26,16 +26,16 @@ io.on('connection', function (socket) {
 
 	socket.on('offer', (offer) => {
 	    //send offer to others with socket.broadcast.emit
-        console.log("offer received, sending answer");
+        console.log("offer received, sending to others");
         socket.broadcast.emit('offer', offer);
 	});
 	socket.on('answer', (answer) => {
-		console.log("received answer");
-	  	//socket.to(id).emit("answer", socket.id, message);
+		console.log("received answer, sending to others");
+	  	socket.broadcast.emit('answer', answer);
 	});
 	socket.on('ice-candidate', (message) => {
 		console.log("received candidate, sending it to others");
-	  	socket.broadcast.emit("ice-candidate", message);
+	  	socket.broadcast.emit('ice-candidate', message);
 	});
 
 	socket.on('disconnect', () => {
